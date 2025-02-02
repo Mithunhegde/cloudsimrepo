@@ -303,11 +303,11 @@ public class CloudSimMultiExtensionPaperExample {
 					new RamProvisionerSimple(ram),
 					new BwProvisionerSimple(vmBw),
 					peList));
-			gList.getLast().setVirtualizationOverhead(vmVirtOverhead);
+			gList.get(gList.size() - 1).setVirtualizationOverhead(vmVirtOverhead);
 
 			// For nested virtualization
 			if (nestedContainers)
-				hostList.add(gList.getLast());
+				hostList.add(gList.get(gList.size() - 1));
 		}
 
 		return gList;
@@ -332,10 +332,10 @@ public class CloudSimMultiExtensionPaperExample {
 					size,
 					vmm,
 					new CloudletSchedulerTimeShared()));
-			gList.getLast().setVirtualizationOverhead(contVirtOverhead);
+			gList.get(gList.size() - 1).setVirtualizationOverhead(contVirtOverhead);
 
 			if (nestedContainers) {
-				gList.getLast().setHost(hostList.get(numberOfHosts + i));
+				gList.get(gList.size() - 1).setHost(hostList.get(numberOfHosts + i));
 			}
 		}
 
@@ -363,7 +363,7 @@ public class CloudSimMultiExtensionPaperExample {
 		if (cloudletToGuest != null && cloudletToGuest.containsKey("cla")) {
 			cla.setGuestId(cloudletToGuest.get("cla"));
 		} else {
-			cla.setGuestId(vmList.getFirst().getId());
+			cla.setGuestId(vmList.get(0).getId());
 		}
 		appCloudlet.cList.add(cla);
 

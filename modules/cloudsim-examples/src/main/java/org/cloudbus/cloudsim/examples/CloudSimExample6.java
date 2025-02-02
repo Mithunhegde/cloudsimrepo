@@ -82,7 +82,7 @@ public class CloudSimExample6 {
 
 		for(int i=0;i<cloudlets;i++){
 			list.add(new Cloudlet(i, length, pesNumber, fileSize, outputSize, utilizationModel, utilizationModel, utilizationModel));
-			list.getLast().setUserId(userId);
+			list.get(list.size() - 1).setUserId(userId);
 		}
 
 		return list;

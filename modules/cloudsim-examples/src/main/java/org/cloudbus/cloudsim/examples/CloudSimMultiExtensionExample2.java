@@ -233,7 +233,7 @@ public class CloudSimMultiExtensionExample2 {
 					new RamProvisionerSimple(ram),
 					new BwProvisionerSimple(bw),
 					peList));
-			vmList.getLast().setVirtualizationOverhead(20);
+			vmList.get(vmList.size() - 1).setVirtualizationOverhead(20);
 		}
 
 		return vmList;

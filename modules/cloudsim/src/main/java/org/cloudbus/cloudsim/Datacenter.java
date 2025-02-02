@@ -1064,7 +1064,7 @@ public class Datacenter extends SimEntity {
 	 * 
 	 * @return the storage list
 	 */
-	protected List<Storage> getStorageList() {
+	public List<Storage> getStorageList() {
 		return storageList;
 	}
 
