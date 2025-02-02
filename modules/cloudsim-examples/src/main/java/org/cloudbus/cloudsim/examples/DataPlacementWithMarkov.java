@@ -162,8 +162,9 @@ class CustomBroker extends DatacenterBroker {
     // Energy consumption accumulator
     private double totalEnergyConsumed = 0;
     // Parameters for movement delay calculation
-    private double dataItemSize = 1000;      // Arbitrary units
-    private double networkBandwidth = 100;   // Data units per time unit
+    private double dataItemSize = 1000;
+    private Random random = new Random();// Arbitrary units
+    private double networkBandwidth =  50 + random.nextDouble() * 100;   // Data units per time unit
     private double distanceFactor = 2.0;     // Multiplier for delay due to distance
     // Energy rate: energy consumed per time unit of data movement delay
     private double energyRate = 5.0;         // Energy units per time unit
