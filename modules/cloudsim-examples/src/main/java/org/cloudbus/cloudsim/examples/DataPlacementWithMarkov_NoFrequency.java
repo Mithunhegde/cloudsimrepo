@@ -196,13 +196,13 @@ class NoFrequencyCheckBroker extends DatacenterBroker {
         for (Cloudlet cloudlet : list) {
             // For every cloudlet, we always check data movement without a frequency threshold.
             int currentZone = dataPlacementMap.get("DataItem1");
-            checkAndMoveData("DataItem1", currentZone, 1);
+            checkAndMoveData("DataItem1", currentZone, 1,cloudlet);
         }
         super.submitCloudletList(list);
     }
 
     // Check if data movement is needed based on prediction and cost, then update energy consumption if movement occurs.
-    public void checkAndMoveData(String dataItemId, int currentZone, int targetZone) {
+    public void checkAndMoveData(String dataItemId, int currentZone, int targetZone, Cloudlet cloudlet) {
         double transitionProb = predictor.getTransitionProbability(currentZone, targetZone);
         System.out.println("Transition probability from Zone " + (currentZone + 1) +
                 " to Zone " + (targetZone + 1) + ": " + transitionProb);
