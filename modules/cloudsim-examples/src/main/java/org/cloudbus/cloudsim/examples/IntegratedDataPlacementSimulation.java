@@ -528,7 +528,6 @@ public class IntegratedDataPlacementSimulation {
         return dc;
     }
 
-    // Create a sample transition matrix.
     private static double[][] createTransitionMatrix() {
         double[][] matrix = {
                 {0.4, 0.6},
@@ -684,6 +683,10 @@ public class IntegratedDataPlacementSimulation {
         // Frequency threshold for migration (for comparison)
         private int frequencyThreshold;
 
+        private double frequencyWeight=0;
+        private double recencyWeight=0;
+
+
         public RLDataBroker(String name, double[][] transitionMatrix, MigrationCostEvaluator evaluator,
                             double predictionThreshold, int frequencyThreshold,
                             double dqnEpsilon, double dqnAlpha, double dqnGamma, int stateBins,
@@ -700,6 +703,8 @@ public class IntegratedDataPlacementSimulation {
             this.predictor = new MobilityModel(transitionMatrix);
             this.costEvaluator = evaluator;
             this.frequencyThreshold = frequencyThreshold;
+            this.frequencyWeight=frequencyWeight;
+            this.recencyWeight=recencyWeight;
 
             // Initialize DL4J DQN agent: state vector of size 4, action space of size 2.
             agent = new DL4JDQNAgent(4, 2, dqnEpsilon, dqnAlpha, dqnGamma);
@@ -710,9 +715,9 @@ public class IntegratedDataPlacementSimulation {
             updateDataAccess("DataItem1", time);
             int currentZone = dataPlacementMap.get("DataItem1");
             double transitionProb = predictor.getTransitionProbability(currentZone, 1);
-            double normalizedFreq = (double) dataAccessFrequency.get("DataItem1") / 10.0;
+            double normalizedFreq = (double) dataAccessFrequency.get("DataItem1") / 10.0*frequencyWeight;
             double currentTime = CloudSim.clock();
-            double recency = 1.0 / (currentTime - dataLastAccessTime.get("DataItem1") + 1);
+            double recency = 1.0 / (currentTime - dataLastAccessTime.get("DataItem1") + 1)*recencyWeight;
             double[] state = new double[] { normalizedFreq, recency, (double) currentZone, transitionProb };
             int action = agent.chooseAction(state);
             System.out.println("DQN Agent chose action: " + action + " for state: " + Arrays.toString(state));
