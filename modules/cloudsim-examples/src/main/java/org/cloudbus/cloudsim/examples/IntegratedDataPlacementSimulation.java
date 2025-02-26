@@ -604,7 +604,7 @@ public class IntegratedDataPlacementSimulation {
             this.qNetwork = buildNetwork(stateSize, actionSize);
         }
 
-        // Build a simple feedforward neural network using DL4J
+
         private MultiLayerNetwork buildNetwork(int inputSize, int outputSize) {
             MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
                     .seed(12345)
